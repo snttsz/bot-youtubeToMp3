@@ -7,7 +7,7 @@ import asyncio
 # local modules
 from src.youtube.PlaylistExtractor import PlaylistExtractor
 from src.youtube.YoutubeManager import YoutubeManager
-from src.utils.FIleHandler import FileHandler
+from src.utils.FileHandler import FileHandler
 
 @Client.on_callback_query(filters.regex(r"^(singleVideo|playlist)"))
 async def handle_callback(app: Client, callback: CallbackQuery):
