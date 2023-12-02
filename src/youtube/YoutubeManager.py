@@ -1,33 +1,68 @@
-import youtube_dl
+import yt_dlp as youtube_dl
+from unidecode import unidecode
 
 class YoutubeManager():
-
-    def __init__(self, video_url: str, username: str) -> None:
+    
+    def __init__(self, video_url: str) -> None:
 
         self.filepath = "downloads/"
         self.fileName = None
         
         self.videoUrl = video_url
-        self.username = username
 
-    def download_video(self) -> None:
-
-        video_info = youtube_dl.YoutubeDL().extract_info(
-            url = self.videoUrl,
-            download = False
-        )
-        
-        self.fileName = "{}.mp3".format(video_info["title"])
-
-        options = {
-            "format" : "bestaudio/best",
-            "keepvideo" : False,
-            "outtmp1" : self.fileName
+        self.ydl_opts = {
+            "quiet" : True,
+            "extract_flat" : True,
+            "force_generic_extractor: " : True
         }
 
-        with youtube_dl.YoutubeDL(options) as yd1:
-            yd1.download(video_info["webpage_url"])
+        self.info_dict = None
+
+    def download_video(self) -> bool:
+
+        try:
+            
+            with youtube_dl.YoutubeDL(self.ydl_opts) as ydl:
+
+                self.info_dict = ydl.extract_info(self.videoUrl, download=False)
+                self.fileName = "{}".format(unidecode(self.info_dict['title']))
+                self.fileName = self.fileName.replace("/", "")
+
+            self.ydl_opts = {
+            'format': 'bestaudio/best',
+            
+            'postprocessors': [
+                {
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }
+            ],
+
+            'outtmpl': f'{self.filepath}{self.fileName}',
+            'keepvideo': False,
+            }
+            
+            with youtube_dl.YoutubeDL(self.ydl_opts) as ydl:
+
+                self.filepath = self.filepath + self.fileName + ".mp3"
+                
+                ydl.process_info(self.info_dict)
+
+            return True
+        
+        except Exception as e:
+            print("Erro: {}\n{}".format(e, e.args))
+            return False
 
     def getVideoPath(self) -> str:
-        pass
+        return self.filepath
+    
+    def getVideoName(self) -> str:
+        return self.fileName
+    
+    def setVideoUrl(self, video_url: str) -> str:
+        self.videoUrl = video_url
+
+
 

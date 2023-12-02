@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from pyrogram import Client
+from pyromod import listen
 from os import getenv
 
 
@@ -9,7 +10,8 @@ load_dotenv("credentials.env")
 if __name__ == "__main__":
 
     plugins = dict (
-        root = "tests/"
+        # root = "tests/"
+        root = "src/pyrogram/"
     )
 
     app = Client(

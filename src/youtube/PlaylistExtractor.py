@@ -1,8 +1,8 @@
-import youtube_dl
+import yt_dlp as youtube_dl
 
 class PlaylistExtractor():
 
-    def __init__(self) -> None:
+    def __init__(self, url_playlist: str) -> None:
         
         self.options = {
             "quiet" : True,
@@ -10,14 +10,16 @@ class PlaylistExtractor():
             "force_generic_extractor: " : True
         }
 
-    def getLinks(self, url_playlist: str) -> list:
+        self.url_playlist = url_playlist
+
+    def getLinks(self) -> list:
 
         links = []
 
         with youtube_dl.YoutubeDL(self.options) as ydl:
 
             result = ydl.extract_info(
-                url = url_playlist,
+                url = self.url_playlist,
                 download = False)
             
             if "entries" in result:
