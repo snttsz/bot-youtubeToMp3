@@ -15,3 +15,7 @@ Then, install the requirements in your enviroment by tipping in your terminal:
 Now, if everything works successfuly, you can run the bot by tipping:
 
 `python3 main.py`
+
+Also, if you're a ubuntu user and don't have ffmpeg in your system, it may raise an error when downloading a video with youtube_dl API. You can fix it by simply installing ffmpeg with the following command:
+
+`sudo apt-get install ffmpeg`
