@@ -28,7 +28,8 @@ async def start(app: Client, message: Message) -> None:
     await app.send_message(
         chat_id = message.chat.id,
         text = start_message, 
-        reply_markup = inline_keyboard)
+        reply_markup = inline_keyboard,
+        disable_web_page_preview = True)
     
 
     
