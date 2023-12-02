@@ -1,7 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery
 
-import threading
 import asyncio
 
 # local modules
@@ -22,12 +21,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             text = "Alright. Have your link. Now just wait a moment and I'll send the MP3 file to you 🎧."
         )
 
-        thread = threading.Thread(
-                    target = run_async_loop,
-                    args = (youtube_link.text, app, callback)
-                )
-
-        thread.start()
+        run_async_loop(youtube_link.text, app, callback)
 
     else:
         
@@ -48,12 +42,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             
             for link in playlist:
                 
-                thread = threading.Thread(
-                    target = run_async_loop,
-                    args = (link, app, callback)
-                )
-
-                thread.start()
+                run_async_loop(link, app, callback)
 
         else:
 
