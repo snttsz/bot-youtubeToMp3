@@ -12,7 +12,7 @@ Then, install the requirements in your enviroment by tipping in your terminal:
 
 `pip install -r requirements.txt`
 
-Now, if everything works successfuly, you can run the bot by tipping:
+Now, if everything works successfully, you can run the bot by tipping:
 
 `python3 main.py`
 
