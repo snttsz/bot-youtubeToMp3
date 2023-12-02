@@ -21,7 +21,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             text = "Alright. Have your link. Now just wait a moment and I'll send the MP3 file to you 🎧."
         )
 
-        run_async_loop(youtube_link.text, app, callback)
+        await download_video(youtube_link.text, app, callback)
 
     else:
         
@@ -42,7 +42,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             
             for link in playlist:
                 
-                run_async_loop(link, app, callback)
+                await download_video(link, app, callback)
 
         else:
 
