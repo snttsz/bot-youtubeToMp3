@@ -51,17 +51,6 @@ async def handle_callback(app: Client, callback: CallbackQuery):
                 text = "Something went wrong and I couldn't get your playlist. May your youtube link ins't correct?"
             )
 
-def run_async_loop(video_url, app, callback):
-    
-    loop = asyncio.new_event_loop()
-    
-    asyncio.set_event_loop(loop)
-    
-    loop.run_until_complete(download_video(video_url, app, callback))
-    
-    loop.close()
-
-
 async def download_video(video_url: str, app: Client, callback: CallbackQuery):
 
     youtubeManager = YoutubeManager(video_url)
