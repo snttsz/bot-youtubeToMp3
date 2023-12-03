@@ -26,7 +26,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
                     target = run_async_loop,
                     args = (youtube_link.text, app, callback)
                 )
-
+        
         thread.start()
 
     else:

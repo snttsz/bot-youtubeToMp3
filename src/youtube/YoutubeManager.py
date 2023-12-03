@@ -28,6 +28,8 @@ class YoutubeManager():
                 self.fileName = "{}".format(unidecode(self.info_dict['title']))
                 self.fileName = self.fileName.replace("/", "")
 
+                ydl.close()
+
             self.ydl_opts = {
             'format': 'bestaudio/best',
             
@@ -48,6 +50,8 @@ class YoutubeManager():
                 self.filepath = self.filepath + self.fileName + ".mp3"
                 
                 ydl.process_info(self.info_dict)
+
+                ydl.close()
 
             return True
         
