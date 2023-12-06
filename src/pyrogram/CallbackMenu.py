@@ -58,7 +58,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             # await download_video2(callback.from_user.id, youtube_link.text, app, callback)
 
-            listFiles = FileHandler.getAllFileNames("downloads/*/")
+            listFiles = FileHandler.getAllFileNames("/root/bot-youtubeToMp3/downloads/2089843939")
 
             print(len(listFiles))
 
