@@ -48,15 +48,15 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             # for link in links:
 
-            # thread = threading.Thread(
-            #     target = run_async_loop2,
-            #     args = (callback.from_user.id, youtube_link.text, app, callback)
-            # )
+            thread = threading.Thread(
+                target = run_async_loop2,
+                args = (callback.from_user.id, youtube_link.text, app, callback)
+            )
 
-            # thread.start()
-            # thread.join()
+            thread.start()
+            thread.join()
 
-            await download_video2(callback.from_user.id, youtube_link.text, app, callback)
+            # await download_video2(callback.from_user.id, youtube_link.text, app, callback)
 
             await app.send_message(
                 chat_id = callback.from_user.id,
