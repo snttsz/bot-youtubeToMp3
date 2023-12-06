@@ -62,13 +62,13 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             print(len(listFiles))
 
-            # for file in listFiles:
+            for file in listFiles:
                 
-            #     path = "downloads/{}".format(file)
+                path = "downloads/{}".format(file)
 
             #     print(file)
 
-                # FileHandler.rename_file(file)
+                FileHandler.rename_file(file)
 
                 # await send_video(path, file, app, callback)
 
