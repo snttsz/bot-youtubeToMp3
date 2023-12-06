@@ -9,6 +9,8 @@ from src.youtube.PlaylistExtractor import PlaylistExtractor
 from src.youtube.YoutubeManager import YoutubeManager
 from src.utils.FileHandler import FileHandler
 
+from src.youtube.YoutubeDownloader import YoutubeDownloader
+
 @Client.on_callback_query(filters.regex(r"^(singleVideo|playlist)"))
 async def handle_callback(app: Client, callback: CallbackQuery):
 
@@ -32,30 +34,30 @@ async def handle_callback(app: Client, callback: CallbackQuery):
     else:
         
         youtube_link = await callback.message.chat.ask("Right. Can you send me your playlist link, please?")
-
-        playListExtractor = PlaylistExtractor(
-            url_playlist = youtube_link.text
-        )
-
-        playlist = playListExtractor.getLinks()
-
-        if len(playlist) > 0:
-
+        
+        # playlist = PlaylistExtractor(youtube_link.text)
+        
+        try:
+            
             await app.send_message(
                 chat_id = callback.from_user.id,
                 text = "Perfect! Just give me some minutes while I download your stuffs... Would you like some coffee ☕?"
             )
-            
-            for link in playlist:
-                
-                thread = threading.Thread(
-                    target = run_async_loop,
-                    args = (link, app, callback)
-                )
 
-                thread.start()
+            # links = playlist.getLinks()
 
-        else:
+            # for link in links:
+
+            thread = threading.Thread(
+                target = run_async_loop2,
+                args = (callback.from_user.id, youtube_link.text, app, callback)
+            )
+
+            thread.start()
+
+            # await download_video2(callback.from_user.id, youtube_link.text, app, callback)
+
+        except:
 
             await app.send_message(
                 chat_id = callback.from_user.id,
@@ -71,6 +73,26 @@ def run_async_loop(video_url, app, callback):
     loop.run_until_complete(download_video(video_url, app, callback))
     
     loop.close()
+
+def run_async_loop2(user_id: int, video_url: str, app: Client, callback: CallbackQuery):
+
+    loop = asyncio.new_event_loop()
+    
+    asyncio.set_event_loop(loop)
+    
+    loop.run_until_complete(download_video2(user_id, video_url, app, callback))
+    
+    loop.close()
+
+async def download_video2(user_id: int, video_url: str, app: Client, callback: CallbackQuery):
+
+    # listFiles = FileHandler.getAllFileNames("downloads/2089843939/")
+
+    # print(list)
+
+    youtubeDownloader = YoutubeDownloader(video_url, user_id)
+
+    operationResult = youtubeDownloader.download()
 
 
 async def download_video(video_url: str, app: Client, callback: CallbackQuery):
