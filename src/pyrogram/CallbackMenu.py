@@ -66,9 +66,11 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
                 print(file)
 
-                await send_video(path, file, app, callback)
+                FileHandler.rename_file(file)
 
-                break
+                # await send_video(path, file, app, callback)
+
+                # break
 
         except Exception as e:
 
@@ -111,15 +113,17 @@ async def download_video2(user_id: int, video_url: str, app: Client, callback: C
 
 async def send_video(videoPath: str, videoName: str, app: Client, callback: CallbackQuery):
 
+
+
     # listFiles = FileHandler.getAllFileNames("downloads/2089843939/")
 
     # print(listFiles)
 
-    await app.send_audio(
-            chat_id = callback.from_user.id,
-            audio = videoPath,
-            caption = videoName
-        )
+    # await app.send_audio(
+    #         chat_id = callback.from_user.id,
+    #         audio = videoPath,
+    #         caption = videoName
+    #     )
 
     # FileHandler.removeFile(videoPath)
 

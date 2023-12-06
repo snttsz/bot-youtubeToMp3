@@ -1,4 +1,5 @@
 import os
+from unidecode import unidecode
 
 class FileHandler():
 
@@ -29,4 +30,13 @@ class FileHandler():
 
                 filenames.append(file)
         
-        return filenames
+        return 
+
+    @staticmethod
+    def rename_file(file: str) -> None:
+        
+        path = "downloads/"
+
+        newFile = unidecode(file)
+
+        os.rename(path + file, path + newFile)
