@@ -58,7 +58,10 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             await download_video2(callback.from_user.id, youtube_link.text, app, callback)
 
-            print("CABOOOOU!!!")
+            await app.send_message(
+                chat_id = callback.from_user.id,
+                text = "Over."
+            )
 
         except:
 
