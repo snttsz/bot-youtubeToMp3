@@ -24,12 +24,12 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             text = "Alright. Have your link. Now just wait a moment and I'll send the MP3 file to you 🎧."
         )
 
-        thread = threading.Thread(
-                    target = run_async_loop,
-                    args = (youtube_link.text, app, callback)
-                )
+        # thread = threading.Thread(
+        #             target = run_async_loop,
+        #             args = (youtube_link.text, app, callback)
+        #         )
         
-        thread.start()
+        # thread.start()
 
     else:
         
@@ -80,16 +80,6 @@ async def handle_callback(app: Client, callback: CallbackQuery):
             )
 
             print(e, e.args, e.with_traceback())
-
-def run_async_loop(video_url, app, callback):
-    
-    loop = asyncio.new_event_loop()
-    
-    asyncio.set_event_loop(loop)
-    
-    loop.run_until_complete(download_video(video_url, app, callback))
-    
-    loop.close()
 
 def run_async_loop2(user_id: int, video_url: str, app: Client, callback: CallbackQuery):
 
