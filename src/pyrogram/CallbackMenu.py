@@ -77,7 +77,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
                 text = "Something went wrong and I couldn't get your playlist. May your youtube link ins't correct?"
             )
 
-            print(e, e.args)
+            print(e, e.args, e.with_traceback())
 
 def run_async_loop(video_url, app, callback):
     
