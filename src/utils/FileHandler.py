@@ -30,7 +30,7 @@ class FileHandler():
 
                 filenames.append(file)
         
-        return 
+        return []
 
     @staticmethod
     def rename_file(file: str) -> None:

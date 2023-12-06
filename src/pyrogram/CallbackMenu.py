@@ -60,11 +60,13 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             listFiles = FileHandler.getAllFileNames("downloads/2089843939/")
 
-            for file in listFiles:
-                
-                path = "downloads/{}".format(file)
+            print(len(listFiles))
 
-                print(file)
+            # for file in listFiles:
+                
+            #     path = "downloads/{}".format(file)
+
+            #     print(file)
 
                 # FileHandler.rename_file(file)
 
