@@ -68,7 +68,11 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             #     print(file)
 
-                FileHandler.rename_file(file)
+                try:
+                    FileHandler.rename_file(file)
+                except:
+                    print(file)
+                    pass
 
                 # await send_video(path, file, app, callback)
 
