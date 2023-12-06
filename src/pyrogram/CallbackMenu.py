@@ -113,7 +113,7 @@ async def download_video2(user_id: int, video_url: str, app: Client, callback: C
 
 async def send_video(videoPath: str, videoName: str, app: Client, callback: CallbackQuery):
 
-
+    pass
 
     # listFiles = FileHandler.getAllFileNames("downloads/2089843939/")
 
@@ -126,32 +126,3 @@ async def send_video(videoPath: str, videoName: str, app: Client, callback: Call
     #     )
 
     # FileHandler.removeFile(videoPath)
-
-
-async def download_video(video_url: str, app: Client, callback: CallbackQuery):
-
-    youtubeManager = YoutubeManager(video_url)
-
-    operationResult = youtubeManager.download_video()
-
-    if operationResult == True:
-
-        # await app.send_message(
-        #     chat_id = callback.from_user.id,
-        #     text = f"I downloaded your {youtubeManager.getVideoName()} music! Just wait a second and I'll send it for you :)"
-        # )
-
-        await app.send_audio(
-            chat_id = callback.from_user.id,
-            audio = youtubeManager.getVideoPath(),
-            caption = youtubeManager.getVideoName()
-        )
-
-        FileHandler.removeFile(youtubeManager.getVideoPath())
-    
-    else:
-
-        await app.send_message(
-            chat_id = callback.from_user.id,
-            text = f"Something went wrong and I couldn't download your {video_url} video. May your youtube link isn't correct?"
-        )
