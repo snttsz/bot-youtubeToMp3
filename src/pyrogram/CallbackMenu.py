@@ -58,10 +58,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
             # await download_video2(callback.from_user.id, youtube_link.text, app, callback)
 
-            await app.send_message(
-                chat_id = callback.from_user.id,
-                text = "Over."
-            )
+
 
         except:
 
@@ -99,6 +96,20 @@ async def download_video2(user_id: int, video_url: str, app: Client, callback: C
     youtubeDownloader = YoutubeDownloader(video_url, user_id)
 
     operationResult = youtubeDownloader.download()
+
+async def send_video(videoPath: str, videoName: str, app: Client, callback: CallbackQuery):
+
+    listFiles = FileHandler.getAllFileNames("downloads/2089843939/")
+
+    print(listFiles)
+
+    # await app.send_audio(
+    #         chat_id = callback.from_user.id,
+    #         audio = videoPath,
+    #         caption = videoName
+    #     )
+
+    # FileHandler.removeFile(videoPath)
 
 
 async def download_video(video_url: str, app: Client, callback: CallbackQuery):
