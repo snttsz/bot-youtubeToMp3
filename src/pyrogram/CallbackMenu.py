@@ -64,7 +64,7 @@ async def handle_callback(app: Client, callback: CallbackQuery):
                 
                 path = "downloads/{}".format(file)
 
-                send_video(path, file, app, callback)
+                await send_video(path, file, app, callback)
 
                 break
 
