@@ -68,12 +68,14 @@ async def handle_callback(app: Client, callback: CallbackQuery):
 
                 break
 
-        except:
+        except Exception as e:
 
             await app.send_message(
                 chat_id = callback.from_user.id,
                 text = "Something went wrong and I couldn't get your playlist. May your youtube link ins't correct?"
             )
+
+            print(e.args)
 
 def run_async_loop(video_url, app, callback):
     
