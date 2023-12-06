@@ -32,11 +32,11 @@ class FileHandler():
         
         return []
 
-    @staticmethod
-    def rename_file(file: str) -> None:
+    # @staticmethod
+    # def rename_file(file: str) -> None:
         
-        path = "downloads/"
+    #     path = "downloads/"
 
-        newFile = unidecode(file)
+    #     newFile = unidecode(file)
 
-        os.rename(path + file, path + newFile)
+    #     os.rename(path + file, path + newFile)
