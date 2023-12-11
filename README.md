@@ -2,7 +2,7 @@
 
 Source code of a telegram bot that can send to a user a MP3 file extracted from a youtube video. It can also handle playlists.
 
-Link of "official" bot: https://t.me/YoutubePlaylistToMP3_Bot (it is using the no-threading-version for free cloud computing reasons, so the service may be a lot more slow)
+Link of "official" bot: https://t.me/YoutubePlaylistToMP3_Bot
 
 # How to setup locally
 
