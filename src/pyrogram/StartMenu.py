@@ -9,21 +9,12 @@ You can download a single video or download a full playlist. In the case of play
 
 If you get interested, here's my source code: https://github.com/snttsz/bot-youtubeToMp3/
 
-Now, you can type /download if you would like to use my services
+Now, you can type /download if you would like to use my services :)
 
 """
 
 @Client.on_message(filters.command('start'))
 async def start(app: Client, message: Message) -> None:
-
-    username = message.from_user.first_name
-
-    inline_keyboard = InlineKeyboardMarkup(
-        [
-            [InlineKeyboardButton("Youtube video to mp3", callback_data = "singleVideo")],
-            [InlineKeyboardButton("Youtube playlist to mp3", callback_data = "playlist")]
-        ]
-    )
 
     await app.send_message(
         chat_id = message.chat.id,

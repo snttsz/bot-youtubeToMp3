@@ -13,73 +13,90 @@ async def handle_callback(app: Client, message: Message):
         
     youtube_link = await message.chat.ask("Right. Can you send me your youtube link, please?")
     
-    try:
-        
-        await app.send_message(
-            chat_id = message.from_user.id,
-            text = "Perfect! Just give me some minutes while I download your stuffs... Would you like some coffee ☕?"
-        )
-
-        thread = threading.Thread(
-            target = run_download_msc,
-            args = (message.from_user.id, youtube_link.text)
-        )
-
-        thread.start()
-        thread.join()
-
-        listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
-
-        for file in listFiles:
-
-            try:
-
-                FileHandler.rename_file(file, str(message.from_user.id))
+    if ("www.youtube.com/" in youtube_link.text):
+        try:
             
-            except:
-
-                print(file)
-        
-        await app.send_message(
-            chat_id = message.from_user.id,
-            text="Don't give up on me 🫨\n\n I just downloaded all your music and I'll send to you right now!"
-        )
-        
-        for file in listFiles:
-
-            path = "downloads/{}/{}".format(message.from_user.id, file)
+            await app.send_message(
+                chat_id = message.from_user.id,
+                text = "Perfect! Just give me some minutes while I download your stuffs... Would you like some coffee ☕?"
+            )
 
             thread = threading.Thread(
-                target = run_send_msc,
-                args = (path, file, app, message)
+                target = run_download_msc,
+                args = (message.from_user.id, youtube_link.text)
             )
 
             thread.start()
+            thread.join()
 
-    except Exception as e:
+            listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
+
+            for file in listFiles:
+
+                try:
+
+                    FileHandler.rename_file(file, str(message.from_user.id))
+                
+                except:
+
+                    print(file)
+            
+            await app.send_message(
+                chat_id = message.from_user.id,
+                text="Don't give up on me 🫨\n\n I just downloaded all your music and I'll send to you right now!"
+            )
+            
+            for file in listFiles:
+
+                path = "downloads/{}/{}".format(message.from_user.id, file)
+
+                thread = threading.Thread(
+                    target = run_send_msc,
+                    args = (path, file, app, message)
+                )
+
+                thread.start()
+
+        except Exception as e:
+
+            await app.send_message(
+                chat_id = message.from_user.id,
+                text = "Something went wrong and I couldn't get your video/playlist. May your youtube link ins't correct?"
+            )
+
+            # print(e, e.args, e.with_traceback())
+    
+
+    else:
 
         await app.send_message(
             chat_id = message.from_user.id,
-            text = "Something went wrong and I couldn't get your video/playlist. May your youtube link ins't correct?"
+            text = "Right, good one. You ALMOST tricked me."
         )
 
-        # print(e, e.args, e.with_traceback())
-
-def run_download_msc(user_id: int, video_url: str):
+def run_download_msc(user_id: int, video_url: str, app: Client, message: Message):
 
     loop = asyncio.new_event_loop()
     
     asyncio.set_event_loop(loop)
     
-    loop.run_until_complete(download_msc(user_id, video_url))
+    loop.run_until_complete(download_msc(user_id, video_url, app, message))
     
     loop.close()
 
-async def download_msc(user_id: int, video_url: str):
+async def download_msc(user_id: int, video_url: str, app: Client, message: Message):
+    
+    try:
+        youtubeDownloader = YoutubeDownloader(video_url, user_id)
 
-    youtubeDownloader = YoutubeDownloader(video_url, user_id)
+        youtubeDownloader.download()   
 
-    youtubeDownloader.download()    
+    except:
+
+        await app.send_message(
+            chat_id = message.from_user.id,
+            text = "There's something wrong with your link. Can you check it and send to me again? You can call the /download command when you're ready."
+        ) 
 
 def run_send_msc(video_path: str, video_name: str, app: Client, message: Message):
 
