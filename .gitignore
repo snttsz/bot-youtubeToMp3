@@ -1,5 +1,6 @@
 env/
 *.session
 __pycache__/
+*.env
 downloads/
 *.session-journal
