@@ -33,9 +33,9 @@ class FileHandler():
         return filenames
 
     @staticmethod
-    def rename_file(file: str) -> None:
-        
-        path = "downloads/"
+    def rename_file(file: str, userid: str) -> None:
+            
+        path = "downloads/{}/".format(userid)
 
         newFile = unidecode(file)
 

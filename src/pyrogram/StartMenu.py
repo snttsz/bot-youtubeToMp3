@@ -3,13 +3,13 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 start_message = """
 
-Hey! I can download your preferred youtube videos and convert them to mp3 (and send it to you, of course) :)
+Hey! I can download your preferred youtube videos and convert them to mp3 (and send it to you, of course)
 
-You can opt for download a single video or download a full playlist. In the case of playlists, each generated MP3 file will be sent to you individually. 
+You can download a single video or download a full playlist. In the case of playlists, each generated MP3 file will be sent to you individually. 
 
 If you get interested, here's my source code: https://github.com/snttsz/bot-youtubeToMp3/
 
-Choose an option:
+Now, you can type /download if you would like to use my services
 
 """
 
@@ -27,8 +27,7 @@ async def start(app: Client, message: Message) -> None:
 
     await app.send_message(
         chat_id = message.chat.id,
-        text = start_message, 
-        reply_markup = inline_keyboard,
+        text = start_message,
         disable_web_page_preview = True)
     
 
