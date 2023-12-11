@@ -1,5 +1,6 @@
 import os
 from unidecode import unidecode
+import subprocess
 
 class FileHandler():
 
@@ -40,3 +41,16 @@ class FileHandler():
         newFile = unidecode(file)
 
         os.rename(path + file, path + newFile)
+
+    @staticmethod
+    def rename_file_bash(file: str, userid: str) -> None:
+
+        path = "downloads/{}/{}".format(userid, file)
+
+        newFile = unidecode(file)
+
+        command = f"cd downloads/{userid}/ && mv '{file}' '{newFile}'"
+
+        result = subprocess.run(command, shell=True)
+
+        print("PROCCESS ---------->> {}".format(result.stdout))

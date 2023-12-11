@@ -23,7 +23,7 @@ async def handle_callback(app: Client, message: Message):
 
             thread = threading.Thread(
                 target = run_download_msc,
-                args = (message.from_user.id, youtube_link.text)
+                args = (message.from_user.id, youtube_link.text, app, message)
             )
 
             thread.start()
@@ -31,7 +31,7 @@ async def handle_callback(app: Client, message: Message):
 
             listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
 
-            for file in listFiles:
+            for file in listFiles:  
 
                 try:
 
@@ -39,12 +39,14 @@ async def handle_callback(app: Client, message: Message):
                 
                 except:
 
-                    print(file)
+                    print("ERROR -----> {}".format(file))
             
             await app.send_message(
                 chat_id = message.from_user.id,
                 text="Don't give up on me 🫨\n\n I just downloaded all your music and I'll send to you right now!"
             )
+
+            listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
             
             for file in listFiles:
 
@@ -65,7 +67,6 @@ async def handle_callback(app: Client, message: Message):
             )
 
             # print(e, e.args, e.with_traceback())
-    
 
     else:
 
@@ -91,7 +92,7 @@ async def download_msc(user_id: int, video_url: str, app: Client, message: Messa
 
         youtubeDownloader.download()   
 
-    except:
+    except Exception as e:
 
         await app.send_message(
             chat_id = message.from_user.id,
@@ -122,7 +123,7 @@ async def send_msc(videoPath: str, videoName: str, app: Client, message: Message
 
     except Exception as e:
 
-        # print("Error ---> user {} : {} --> {}".format(message.from_user.id, message.from_user.first_name, e.args))
+        print("Error ---> user {} : {} --> {}".format(message.from_user.id, message.from_user.first_name, e.args))
         pass
 
     except UnicodeDecodeError as e:
