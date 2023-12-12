@@ -30,23 +30,11 @@ async def handle_callback(app: Client, message: Message):
             thread.join()
 
             listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
-
-            for file in listFiles:  
-
-                try:
-
-                    FileHandler.rename_file(file, str(message.from_user.id))
-                
-                except:
-
-                    print("ERROR -----> {}".format(file))
             
             await app.send_message(
                 chat_id = message.from_user.id,
                 text="Don't give up on me 🫨\n\n I just downloaded all your music and I'll send to you right now!"
             )
-
-            listFiles = FileHandler.getAllFileNames("downloads/{}/".format(message.from_user.id))
             
             for file in listFiles:
 
@@ -123,13 +111,14 @@ async def send_msc(videoPath: str, videoName: str, app: Client, message: Message
 
     except Exception as e:
 
+        newPath = FileHandler.rename_file(videoPath, str(message.from_user.id))
+
+        await app.send_audio(
+                chat_id = message.from_user.id,
+                audio = newPath,
+                caption = videoName
+            )
+
+        FileHandler.removeFile(videoPath)
+
         print("Error ---> user {} : {} --> {}".format(message.from_user.id, message.from_user.first_name, e.args))
-        pass
-
-    except UnicodeDecodeError as e:
-
-        pass
-
-    except ValueError as e:
-
-        pass

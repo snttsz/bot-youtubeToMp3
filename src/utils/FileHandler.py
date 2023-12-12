@@ -34,13 +34,15 @@ class FileHandler():
         return filenames
 
     @staticmethod
-    def rename_file(file: str, userid: str) -> None:
+    def rename_file(file: str, userid: str) -> str:
             
         path = "downloads/{}/".format(userid)
 
         newFile = unidecode(file)
 
         os.rename(path + file, path + newFile)
+
+        return path + newFile
 
     @staticmethod
     def rename_file_bash(file: str, userid: str) -> None:
