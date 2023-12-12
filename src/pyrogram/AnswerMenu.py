@@ -13,7 +13,7 @@ async def handle_callback(app: Client, message: Message):
         
     youtube_link = await message.chat.ask("Right. Can you send me your youtube link, please?")
     
-    if ("www.youtube.com/" in youtube_link.text):
+    if ("www.youtube.com/" in youtube_link.text or "youtu.be/" in youtube_link.text):
         try:
             
             await app.send_message(
