@@ -1,5 +1,7 @@
 # # YoutubeToMp3 Bot
 
+* this branch need to be updated
+
 Source code of a telegram bot that can send to a user a MP3 file extracted from a youtube video. It can also handle playlists.
 
 Link of "official" bot: https://t.me/YoutubePlaylistToMP3_Bot
